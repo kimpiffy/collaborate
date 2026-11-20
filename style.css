@@ -80,3 +80,4 @@ header h1,#reader .bar h1,#sources .bar h1{letter-spacing:-.03em}
 .intro h1,header h1,#reader .bar h1,#sources .bar h1,#reader .reading h2,#sources .bibliography h2{letter-spacing:.03em}
 .fl-gap{display:inline-block;width:.1em}
 header h1 .fl-gap,#reader .bar h1 .fl-gap,#sources .bar h1 .fl-gap{width:.06em}
+@media(max-width:600px){#reader .bar{position:static;flex-wrap:wrap;min-height:0;padding:8px 0;gap:0 8px}#reader .bar h1{flex:0 0 100%;line-height:.95}#reader .bar h1 em{display:block}}
