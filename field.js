@@ -179,13 +179,29 @@ function tint(el,i){
  const [ink,echo,x,y,size]=drops[i];const styles={'--ink1':ink,'--ink2':echo,'--x':x+'%','--y':y+'%','--size':size,'--angle':(i*47)+'deg','--time':(13+i%5*2)+'s','--delay':(-i*2.7-1)+'s','--dx':(i%2?1:-1)*(9+i%4*3)+'px','--dy':(i%3?1:-1)*(12+i%5*3)+'px'};
  Object.entries(styles).forEach(([k,v])=>el.style.setProperty(k,v));
 }
+function setParagraphText(p,text){
+ const italic=/\*([^*]+)\*/g;let cursor=0;
+ for(const match of text.matchAll(italic)){
+   p.append(document.createTextNode(text.slice(cursor,match.index)));
+   const emphasis=document.createElement('em');emphasis.textContent=match[1];p.append(emphasis);
+   cursor=match.index+match[0].length;
+ }
+ p.append(document.createTextNode(text.slice(cursor)));
+}
+function setHeadingText(heading,text){
+ const pair=text.toLowerCase().indexOf('fl');
+ if(pair<0){heading.textContent=text;return}
+ const gap=document.createElement('span');gap.className='fl-gap';
+ heading.replaceChildren(document.createTextNode(text.slice(0,pair+1)),gap,document.createTextNode(text.slice(pair+1)));
+}
 function openWeek(i){
  if(i<0||i>=weeks.length)return;current=i;const [name,subtitle,...paras]=weeks[i];
- $('#week').textContent='Week '+num(i);$('#title').textContent=name;tint(reader,i);$('#subtitle').textContent=subtitle;
+ $('#week').textContent='Week '+num(i);setHeadingText($('#title'),name);tint(reader,i);$('#subtitle').textContent=subtitle;
  $('#writing').replaceChildren(...paras.flatMap((s,j)=>{
-   const h=document.createElement('h3'),p=document.createElement('p');h.textContent=['What?','So what?','Now what?'][j];p.textContent=s;return [h,p];
+   const h=document.createElement('h3'),p=document.createElement('p');h.textContent=['What?','So what?','Now what?'][j];setParagraphText(p,s);return [h,p];
  }));
- $('#prev').disabled=i===0;$('#next').disabled=i===11;
+ $('#prev').disabled=i===0;
+ $('#next').hidden=i===weeks.length-1;$('#manifesto-link').hidden=i!==weeks.length-1;
  const entering=!reader.open;
  if(entering){
    const orb=field.children[i].getBoundingClientRect();

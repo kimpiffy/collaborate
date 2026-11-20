@@ -50,7 +50,7 @@ body{overflow-x:clip}header,footer{position:relative;z-index:1}
 
 .drop{min-width:44px;min-height:44px}
 
-#sound,#bib,.paging button,#reader .bar .audio-toggle,#reader .bar .close,#sources .bar .close{
+#sound,#bib,.paging button,.paging a,#reader .bar .audio-toggle,#reader .bar .close,#sources .bar .close{
  appearance:none;
  border:0;
  border-radius:0;
@@ -67,11 +67,16 @@ body{overflow-x:clip}header,footer{position:relative;z-index:1}
 #reader .bar .close span,#sources .bar .close span{font:inherit}
 #reader .bar .close:hover,#sources .bar .close:hover{background:transparent}
 #sound:focus-visible,#bib:focus-visible,.paging button:focus-visible,
+.paging a:focus-visible,
 #reader .bar .audio-toggle:focus-visible,#reader .bar .close:focus-visible,
 #sources .bar .close:focus-visible{outline:none}
 .paging button:disabled{opacity:1}
+.paging a{text-decoration:none}
 footer,.paging,#sources .bar,.bibliography p{border:0}
 header h1,#reader .bar h1,#sources .bar h1{letter-spacing:-.03em}
 .hue-shift{color:#ff6262;animation:hueShift 14s linear infinite}
 @keyframes hueShift{to{filter:hue-rotate(360deg)}}
 #sources .bibliography h2.hue-shift{letter-spacing:-.02em;text-shadow:0 0 7px rgb(255 98 98 / 38%)}
+.intro h1,header h1,#reader .bar h1,#sources .bar h1,#reader .reading h2,#sources .bibliography h2{letter-spacing:.03em}
+.fl-gap{display:inline-block;width:.1em}
+header h1 .fl-gap,#reader .bar h1 .fl-gap,#sources .bar h1 .fl-gap{width:.06em}
