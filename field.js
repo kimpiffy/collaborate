@@ -210,8 +210,28 @@ weeks.forEach(([name],i)=>{
 });
 $('#bib').onclick=()=>{tune(-1);sources.showModal();sources.scrollTop=0};
 $('#prev').onclick=()=>openWeek(current-1);$('#next').onclick=()=>openWeek(current+1);
-document.querySelectorAll('.close').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+document.querySelectorAll('.close').forEach(b=>{
+ if(b.closest('#reader'))return;
+ b.onclick=()=>b.closest('dialog').close();
+});
+let closingReader=false;
+reader.querySelector('.close').addEventListener('click',()=>closeReader());
+reader.addEventListener('cancel',event=>{
+ event.preventDefault();
+ closeReader();
+});
+function closeReader(){
+ if(closingReader||!reader.open)return;
+ closingReader=true;
+ reader.classList.add('closing');
+ window.setTimeout(()=>{
+   reader.classList.remove('closing');
+   closingReader=false;
+   reader.close();
+ },950);
+}
 reader.onclose=()=>{
+ if(closingReader)return;
  current=-1;tune(-1);
 };
 
